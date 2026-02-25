@@ -9,4 +9,9 @@ class AppTheme {
       border: OutlineInputBorder(),
     ),
   );
+  static final darkTheme = ThemeData(
+    useMaterial3: true,
+    colorSchemeSeed: Colors.white,
+    scaffoldBackgroundColor: Colors.white,
+  ); 
 }
