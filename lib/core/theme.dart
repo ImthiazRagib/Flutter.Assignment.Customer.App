@@ -11,7 +11,11 @@ class AppTheme {
   );
   static final darkTheme = ThemeData(
     useMaterial3: true,
-    colorSchemeSeed: Colors.white,
-    scaffoldBackgroundColor: Colors.white,
+    colorSchemeSeed: const Color.fromARGB(255, 232, 233, 233),
+    brightness: Brightness.dark,
+    scaffoldBackgroundColor: const Color(0xFF121212),
+    inputDecorationTheme: const InputDecorationTheme(
+      border: OutlineInputBorder(),
+    ),
   ); 
 }

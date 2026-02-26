@@ -1,15 +1,24 @@
+import 'package:assignment_customer_app/core/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 
 class LandingPage extends StatelessWidget {
   const LandingPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
+    final isDarkMode = themeProvider.isDarkMode;
+    final backgroundColor = isDarkMode ? Colors.black : Colors.white;
+    final textColor = isDarkMode ? Colors.white : Colors.black;
+    final accentColor = isDarkMode ? Colors.white : Colors.black;
     return Scaffold(
       appBar: AppBar(
         title: const Text("Assignment Solutions"),
-        backgroundColor: Colors.white,
+        backgroundColor: backgroundColor,
+        foregroundColor: textColor,
+        iconTheme: IconThemeData(color: textColor),
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -58,9 +67,9 @@ class LandingPage extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text("Assignment Writing Services Offered By Us", style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Color(0xFF13245A)), textAlign: TextAlign.center),
+                Text("Assignment Writing Services Offered By Us", style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: accentColor), textAlign: TextAlign.center),
                 SizedBox(height: 10),
-                Text("Expert help for all your academic assignments — fast, reliable, and affordable.", style: TextStyle(fontSize: 14, color: Colors.grey.shade700), textAlign: TextAlign.center),
+                Text("Expert help for all your academic assignments — fast, reliable, and affordable.", style: TextStyle(fontSize: 14, color: accentColor), textAlign: TextAlign.center),
                 SizedBox(height: 20),
                 SizedBox(
                   width: double.infinity,
@@ -89,16 +98,16 @@ class LandingPage extends StatelessWidget {
                   margin: const EdgeInsets.only(right: 8),
                   padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 8),
                   decoration: BoxDecoration(
-                    border: Border.all(color: Color(0xFF13245A), width: 1),
+                    border: Border.all(color: accentColor, width: 1),
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Icon(Icons.assignment, size: 20, color: Color(0xFF13245A)),
+                      Icon(Icons.assignment, size: 20, color: accentColor),
                       SizedBox(width: 6),
-                      Flexible(child: Text("Assignments", style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: Color(0xFF13245A)), overflow: TextOverflow.ellipsis)),
+                      Flexible(child: Text("Assignments", style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: accentColor), overflow: TextOverflow.ellipsis)),
                     ],
                   ),
                 ),
@@ -107,16 +116,16 @@ class LandingPage extends StatelessWidget {
                   margin: const EdgeInsets.only(right: 8),
                   padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 8),
                   decoration: BoxDecoration(
-                    border: Border.all(color: Color(0xFF13245A), width: 1),
+                    border: Border.all(color: accentColor, width: 1),
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Icon(Icons.school, size: 20, color: Color(0xFF13245A)),
+                      Icon(Icons.school, size: 20, color: accentColor),
                       SizedBox(width: 6),
-                      Flexible(child: Text("Expert Help", style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: Color(0xFF13245A)), overflow: TextOverflow.ellipsis)),
+                      Flexible(child: Text("Expert Help", style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: accentColor), overflow: TextOverflow.ellipsis)),
                     ],
                   ),
                 ),
@@ -124,16 +133,16 @@ class LandingPage extends StatelessWidget {
                   width: 140,
                   padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 8),
                   decoration: BoxDecoration(
-                    border: Border.all(color: Color(0xFF13245A), width: 1),
+                    border: Border.all(color: accentColor, width: 1),
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Icon(Icons.schedule, size: 20, color: Color(0xFF13245A)),
+                      Icon(Icons.schedule, size: 20, color: accentColor),
                       SizedBox(width: 6),
-                      Flexible(child: Text("On Time", style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: Color(0xFF13245A)), overflow: TextOverflow.ellipsis)),
+                      Flexible(child: Text("On Time", style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: accentColor), overflow: TextOverflow.ellipsis)),
                     ],
                   ),
                 ),

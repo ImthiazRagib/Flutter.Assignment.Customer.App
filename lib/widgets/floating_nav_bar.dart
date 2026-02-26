@@ -11,7 +11,7 @@ class FloatingNavBar extends StatelessWidget {
     return Positioned(
       left: 16,
       right: 16,
-      bottom: 16,
+      bottom: 24,
       child: Material(
         elevation: 8,
         borderRadius: BorderRadius.circular(999),
