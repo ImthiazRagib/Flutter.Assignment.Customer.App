@@ -10,12 +10,6 @@ class LandingPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text("Assignment Solutions"),
         backgroundColor: Colors.white,
-        // actions: [
-        //   TextButton(onPressed: () => context.go('/about'), child: const Text("About")),
-        //   TextButton(onPressed: () => context.go('/services'), child: const Text("Services")),
-        //   TextButton(onPressed: () => context.go('/order'), child: const Text("Order")),
-        //   TextButton(onPressed: () => context.go('/login'), child: const Text("Login")),
-        // ],
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -146,6 +140,7 @@ class LandingPage extends StatelessWidget {
               ],
             ),
           ),
+          SizedBox(height: 24),
         ],
       ),
     );
