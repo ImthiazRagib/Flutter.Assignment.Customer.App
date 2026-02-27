@@ -1,8 +1,8 @@
 import 'package:assignment_customer_app/core/theme_provider.dart';
 import 'package:assignment_customer_app/features/atoms/heading_capsule.dart';
 import 'package:assignment_customer_app/features/atoms/order_button.dart';
+import 'package:assignment_customer_app/features/atoms/primary_banner_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'assignment_help.dart';
 
@@ -132,8 +132,9 @@ class LandingPage extends StatelessWidget {
             ),
             SizedBox(height: 10),
             AssignmentHelp(),
+            PrimaryBannerBar(text: "Become a Partner", ctaText: "Join Now", onTap: () => (() {})),
           ],
-        ),
+        ),// parent
       ),
     );
   }
