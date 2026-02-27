@@ -2,6 +2,7 @@ import 'package:assignment_customer_app/core/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+import 'assignment_help.dart';
 
 class LandingPage extends StatelessWidget {
   const LandingPage({super.key});
@@ -9,10 +10,9 @@ class LandingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
-    final isDarkMode = themeProvider.isDarkMode;
-    final backgroundColor = isDarkMode ? Colors.black : Colors.white;
-    final textColor = isDarkMode ? Colors.white : Colors.black;
-    final accentColor = isDarkMode ? Colors.white : Colors.black;
+    final backgroundColor = themeProvider.backgroundColor;
+    final textColor = themeProvider.textColor;
+    final accentColor = themeProvider.accentColor;
     return Scaffold(
       appBar: AppBar(
         title: const Text("Assignment Solutions"),
@@ -260,33 +260,8 @@ class LandingPage extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 10),
-                Container(
-                  margin: const EdgeInsets.only(right: 8),
-                  padding: const EdgeInsets.symmetric(
-                    vertical: 10,
-                    horizontal: 8,
-                  ),
-                  child: Column(
-                    children: [
-                      Text(
-                        "Need Assignment Help? Our Professionals Offer Assistance in All Types of Assignments",
-                        style: TextStyle(
-                          fontSize: 22,
-                          fontWeight: FontWeight.bold,
-                          color: accentColor,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                      SizedBox(height: 10),
-                      Text(
-                        "Have a look at the few assignment types that our writers work on",
-                        style: TextStyle(fontSize: 14, color: accentColor),
-                        textAlign: TextAlign.center,
-                      ),
-                    ],
-                  ),
-                ),
-              ],
+                AssignmentHelp(),
+                ],
             ),
           ],
         ),

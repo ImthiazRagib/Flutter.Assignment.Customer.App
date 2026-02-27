@@ -6,7 +6,7 @@ import 'package:assignment_customer_app/features/order_page.dart';
 import 'package:assignment_customer_app/features/profile.dart';
 import 'package:assignment_customer_app/widgets/floating_nav_bar.dart';
 import 'package:go_router/go_router.dart';
-import 'features/landing.dart';
+import 'features/landing/landing.dart';
 
 final GoRouter router = GoRouter(
   initialLocation: '/',
