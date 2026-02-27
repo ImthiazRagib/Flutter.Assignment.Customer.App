@@ -28,7 +28,7 @@ class FeatureCard extends StatelessWidget {
         color: cardColor,
         borderRadius: BorderRadius.circular(8),
         boxShadow: [
-          BoxShadow(blurRadius: 4, color: Colors.black.withValues(alpha: 0.8)),
+          BoxShadow(blurRadius: 2, color: Colors.black.withValues(alpha: 0.2)),
         ],
       ),
       child: Column(

@@ -1,4 +1,6 @@
 import 'package:assignment_customer_app/core/theme_provider.dart';
+import 'package:assignment_customer_app/features/atoms/heading_capsule.dart';
+import 'package:assignment_customer_app/features/atoms/order_button.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
@@ -85,17 +87,9 @@ class LandingPage extends StatelessWidget {
                     textAlign: TextAlign.center,
                   ),
                   SizedBox(height: 20),
-                  SizedBox(
+                  OrderButton(
+                    label: "Get assignment help now",
                     width: double.infinity,
-                    child: ElevatedButton(
-                      onPressed: () => context.go('/order'),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Color(0xFFFBD502),
-                        foregroundColor: Color(0xFF13245A),
-                        padding: EdgeInsets.symmetric(vertical: 14),
-                      ),
-                      child: Text("Get assignment help now"),
-                    ),
                   ),
                 ],
               ),
@@ -107,98 +101,9 @@ class LandingPage extends StatelessWidget {
                 scrollDirection: Axis.horizontal,
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 children: [
-                  Container(
-                    width: 140,
-                    margin: const EdgeInsets.only(right: 8),
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 10,
-                      horizontal: 8,
-                    ),
-                    decoration: BoxDecoration(
-                      border: Border.all(color: accentColor, width: 1),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Icon(Icons.assignment, size: 20, color: accentColor),
-                        SizedBox(width: 6),
-                        Flexible(
-                          child: Text(
-                            "Assignments",
-                            style: TextStyle(
-                              fontSize: 11,
-                              fontWeight: FontWeight.w600,
-                              color: accentColor,
-                            ),
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    width: 140,
-                    margin: const EdgeInsets.only(right: 8),
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 10,
-                      horizontal: 8,
-                    ),
-                    decoration: BoxDecoration(
-                      border: Border.all(color: accentColor, width: 1),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Icon(Icons.school, size: 20, color: accentColor),
-                        SizedBox(width: 6),
-                        Flexible(
-                          child: Text(
-                            "Expert Help",
-                            style: TextStyle(
-                              fontSize: 11,
-                              fontWeight: FontWeight.w600,
-                              color: accentColor,
-                            ),
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    width: 140,
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 10,
-                      horizontal: 8,
-                    ),
-                    decoration: BoxDecoration(
-                      border: Border.all(color: accentColor, width: 1),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Icon(Icons.schedule, size: 20, color: accentColor),
-                        SizedBox(width: 6),
-                        Flexible(
-                          child: Text(
-                            "On Time",
-                            style: TextStyle(
-                              fontSize: 11,
-                              fontWeight: FontWeight.w600,
-                              color: accentColor,
-                            ),
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+                  HeadingCapsule(label: "Assignments", icon: Icons.assignment),
+                  HeadingCapsule(label: "Expert Help", icon: Icons.school),
+                  HeadingCapsule(label: "On Time", icon: Icons.schedule),
                 ],
               ),
             ),
@@ -226,43 +131,7 @@ class LandingPage extends StatelessWidget {
               ),
             ),
             SizedBox(height: 10),
-            Column(
-              children: [
-                Container(
-                  width: 140,
-                  margin: const EdgeInsets.only(right: 8),
-                  padding: const EdgeInsets.symmetric(
-                    vertical: 10,
-                    horizontal: 8,
-                  ),
-                  decoration: BoxDecoration(
-                    border: Border.all(color: accentColor, width: 1),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Icon(Icons.assignment, size: 20, color: accentColor),
-                      SizedBox(width: 6),
-                      Flexible(
-                        child: Text(
-                          "Assignments",
-                          style: TextStyle(
-                            fontSize: 11,
-                            fontWeight: FontWeight.w600,
-                            color: accentColor,
-                          ),
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(height: 10),
-                AssignmentHelp(),
-                ],
-            ),
+            AssignmentHelp(),
           ],
         ),
       ),
