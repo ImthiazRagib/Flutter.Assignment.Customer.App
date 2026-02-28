@@ -54,47 +54,48 @@ class _OrderFormState extends State<OrderForm> {
 
   static final _emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
 
-  Future<void> _submitOrder() async {
-    if (!_formKey.currentState!.validate()) return;
-
-    final auth = Provider.of<AuthProvider>(context, listen: false);
-    if (!auth.isLoggedIn) {
-      // Hold data in state (no reset); show login-first popup.
-      if (!context.mounted) return;
-      await showDialog<void>(
-        context: context,
-        builder: (ctx) => AlertDialog(
-          title: const Text("Login required"),
-          content: const Text(
-            "Please log in first to submit your order. Your form data has been saved.",
-          ),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.of(ctx).pop(),
-              child: const Text("Stay"),
-            ),
-            FilledButton(
-              onPressed: () {
-                Navigator.of(ctx).pop();
-                context.go('/login');
-              },
-              child: const Text("Go to Login"),
-            ),
-          ],
-        ),
-      );
-      return;
-    }
-
-    if (!context.mounted) return;
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text("Order submitted successfully")),
-    );
-    context.go('/dashboard');
-  }
-
   @override
   Widget build(BuildContext context) {
+    final auth = Provider.of<AuthProvider>(context, listen: false);
+
+    Future<void> submitOrder() async {
+      if (!_formKey.currentState!.validate()) return;
+
+      if (!auth.isLoggedIn) {
+        // Hold data in state (no reset); show login-first popup.
+        if (!context.mounted) return;
+        await showDialog<void>(
+          context: context,
+          builder: (ctx) => AlertDialog(
+            title: const Text("Login required"),
+            content: const Text(
+              "Please log in first to submit your order. Your form data has been saved.",
+            ),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.of(ctx).pop(),
+                child: const Text("Stay"),
+              ),
+              FilledButton(
+                onPressed: () {
+                  Navigator.of(ctx).pop();
+                  context.go('/login');
+                },
+                child: const Text("Go to Login"),
+              ),
+            ],
+          ),
+        );
+        return;
+      }
+
+      if (!context.mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Order submitted successfully")),
+      );
+      context.go('/dashboard');
+    }
+
     return Form(
       key: _formKey,
       child: Column(
@@ -162,7 +163,7 @@ class _OrderFormState extends State<OrderForm> {
           ),
           const SizedBox(height: 12),
           ElevatedButton(
-            onPressed: _agreed ? _submitOrder : null,
+            onPressed: _agreed ? submitOrder : null,
             child: const Text("Submit Order"),
           ),
         ],

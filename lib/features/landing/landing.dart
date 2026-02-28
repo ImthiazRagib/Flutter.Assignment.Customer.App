@@ -5,6 +5,8 @@ import 'package:assignment_customer_app/features/atoms/primary_banner_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'assignment_help.dart';
+import 'package:go_router/go_router.dart';
+import 'package:assignment_customer_app/core/auth_provider.dart';
 
 class LandingPage extends StatelessWidget {
   const LandingPage({super.key});
@@ -15,12 +17,100 @@ class LandingPage extends StatelessWidget {
     final backgroundColor = themeProvider.backgroundColor;
     final textColor = themeProvider.textColor;
     final accentColor = themeProvider.accentColor;
+    final authenticated = Provider.of<AuthProvider>(
+      context,
+      listen: false,
+    ).isLoggedIn;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text("Assignment Solutions"),
         backgroundColor: backgroundColor,
         foregroundColor: textColor,
         iconTheme: IconThemeData(color: textColor),
+        leading: Builder(
+          builder: (ctx) => IconButton(
+            onPressed: () => Scaffold.of(ctx).openDrawer(),
+            icon: const Icon(Icons.menu),
+          ),
+        ),
+        actions: [
+          authenticated
+              ? IconButton(
+                  onPressed: () => context.go('/notification'),
+                  icon: const Icon(Icons.notifications),
+                )
+              : IconButton(
+                  onPressed: () => context.go('/login'),
+                  icon: const Icon(Icons.login),
+                ),
+        ],
+      ),
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: [
+            DrawerHeader(
+              decoration: BoxDecoration(color: Color(0xFF13245A)),
+              child: Text(
+                "Assignment Solutions",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            ListTile(
+              leading: Icon(Icons.home),
+              title: Text("Home"),
+              onTap: () {
+                Navigator.pop(context);
+                context.go('/');
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.add_circle_outline),
+              title: Text("Order"),
+              onTap: () {
+                Navigator.pop(context);
+                context.go('/order');
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.dashboard),
+              title: Text("Dashboard"),
+              onTap: () {
+                Navigator.pop(context);
+                context.go('/dashboard');
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.person_outline),
+              title: Text("Profile"),
+              onTap: () {
+                Navigator.pop(context);
+                context.go('/profile');
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.login),
+              title: Text("Login"),
+              onTap: () {
+                Navigator.pop(context);
+                context.go('/login');
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.person_add),
+              title: Text("Sign up"),
+              onTap: () {
+                Navigator.pop(context);
+                context.go('/signup');
+              },
+            ),
+          ],
+        ),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.only(bottom: 80),
@@ -132,9 +222,13 @@ class LandingPage extends StatelessWidget {
             ),
             SizedBox(height: 10),
             AssignmentHelp(),
-            PrimaryBannerBar(text: "Become a Partner", ctaText: "Join Now", onTap: () => (() {})),
+            PrimaryBannerBar(
+              text: "Become a Partner",
+              ctaText: "Join Now",
+              onTap: () => (() {}),
+            ),
           ],
-        ),// parent
+        ), // parent
       ),
     );
   }
