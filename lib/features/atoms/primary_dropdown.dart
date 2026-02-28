@@ -27,7 +27,7 @@ class PrimaryDropdown<T> extends StatelessWidget {
     const primaryColor = Color(0xFF13245A);
 
     return DropdownButtonFormField<T>(
-      value: value,
+      initialValue: value,
       decoration: InputDecoration(
         labelText: label,
         border: const OutlineInputBorder(),
