@@ -12,16 +12,15 @@ import 'package:assignment_customer_app/core/auth_provider.dart';
 class LandingPage extends StatelessWidget {
   const LandingPage({super.key});
 
+
   @override
   Widget build(BuildContext context) {
+    final authProvider = Provider.of<AuthProvider>(context, listen: false);
     final themeProvider = Provider.of<ThemeProvider>(context);
     final backgroundColor = themeProvider.backgroundColor;
     final textColor = themeProvider.textColor;
     final accentColor = themeProvider.accentColor;
-    final authenticated = Provider.of<AuthProvider>(
-      context,
-      listen: false,
-    ).isLoggedIn;
+    final authenticated = authProvider.isLoggedIn;
 
     return Scaffold(
       appBar: AppBar(

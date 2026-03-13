@@ -1,8 +1,8 @@
 import 'package:assignment_customer_app/core/theme_provider.dart';
+import 'package:assignment_customer_app/core/auth_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';
-import '../../core/auth_provider.dart';
 import 'login_form.dart';
 
 class LoginPage extends StatelessWidget {
@@ -10,15 +10,21 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final authenticated = Provider.of<AuthProvider>(context, listen: false);
     final themeProvider = Provider.of<ThemeProvider>(context, listen: false);
     final backgroundColor = themeProvider.backgroundColor;
     final textColor = themeProvider.textColor;
     final accentColor = themeProvider.accentColor;
-
-    Future<void> login(String emailOrPhone, String password) async {
-      authenticated.login();
-      // context.go('/dashboard');
+    final authProvider = Provider.of<AuthProvider>(context, listen: false);
+    
+    Future<void> login({
+      required String emailOrPhone,
+      required String password,
+    }) async {
+      await authProvider.setEmailOrPhone(emailOrPhone);
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('You are logged in successfully')),
+      );
+      context.go('/dashboard');
     }
 
     return Scaffold(
@@ -34,9 +40,13 @@ class LoginPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-             Text(
+            Text(
               "Welcome Back👏🏻",
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: textColor),
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+                color: textColor,
+              ),
               textAlign: TextAlign.left,
             ),
             SizedBox(height: 10),
@@ -49,7 +59,11 @@ class LoginPage extends StatelessWidget {
             Center(
               child: ConstrainedBox(
                 constraints: const BoxConstraints(maxWidth: 400),
-                child: LoginForm(submitLabel: 'Login', onSubmit: login),
+                child: LoginForm(
+                  submitLabel: 'Login',
+                  onSubmit: (emailOrPhone, password) =>
+                      login(emailOrPhone: emailOrPhone, password: password),
+                ),
               ),
             ),
           ],
