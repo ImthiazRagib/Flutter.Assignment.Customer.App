@@ -1,5 +1,6 @@
 import 'package:assignment_customer_app/core/theme_provider.dart';
 import 'package:assignment_customer_app/features/atoms/heading_capsule.dart';
+import 'package:assignment_customer_app/features/atoms/order_button.dart';
 import 'package:assignment_customer_app/widgets/testimonials/testimonals.dart';
 import 'package:flutter/material.dart';
 import 'package:assignment_customer_app/widgets/stars.dart';
@@ -116,7 +117,10 @@ class _TestimonialSliderState extends State<TestimonialSlider> {
         ),
         SizedBox(height: 10),
         SizedBox(
-          height: 190,
+          height: (MediaQuery.of(context).size.height * 0.3).clamp(
+            190,
+            double.infinity,
+          ),
           child: PageView.builder(
             controller: _pageController,
             itemCount: testimonials.length,
@@ -173,15 +177,6 @@ class _TestimonialSliderState extends State<TestimonialSlider> {
                                 ],
                               ),
                             ),
-                            Text(
-                              "${t.date.day.toString().padLeft(2, '0')}/"
-                              "${t.date.month.toString().padLeft(2, '0')}/"
-                              "${t.date.year}",
-                              style: TextStyle(
-                                color: textColor.withValues(alpha: 0.7),
-                                fontSize: 11,
-                              ),
-                            ),
                           ],
                         ),
                         const SizedBox(height: 12),
@@ -191,6 +186,16 @@ class _TestimonialSliderState extends State<TestimonialSlider> {
                             maxLines: 4,
                             overflow: TextOverflow.ellipsis,
                             style: const TextStyle(fontSize: 14, height: 1.3),
+                          ),
+                        ),
+                        SizedBox(height: 10),
+                        Text(
+                          "${t.date.day.toString().padLeft(2, '0')}/"
+                          "${t.date.month.toString().padLeft(2, '0')}/"
+                          "${t.date.year}",
+                          style: TextStyle(
+                            color: textColor.withValues(alpha: 0.7),
+                            fontSize: 11,
                           ),
                         ),
                       ],
@@ -220,6 +225,12 @@ class _TestimonialSliderState extends State<TestimonialSlider> {
               ),
             );
           }),
+        ),
+
+        SizedBox(height: 30),
+        OrderButton(
+          label: 'Order Now',
+          width: MediaQuery.of(context).size.width * 2 / 3,
         ),
       ],
     );

@@ -212,7 +212,7 @@ class LandingPage extends StatelessWidget {
                     ),
                     textAlign: TextAlign.center,
                   ),
-                  SizedBox(height: 10),
+                  SizedBox(height: 20),
                   Text(
                     "Assignment writing is essential for your grades but can be challenging. Students often struggle with topics, research, and drafting. Our experts help you overcome these hurdles and deliver strong assignments.",
                     style: TextStyle(fontSize: 14, color: accentColor),
