@@ -122,6 +122,7 @@ class LandingPage extends StatelessWidget {
               onTap: () async {
                 Navigator.pop(context);
                 await authProvider.logout();
+                if (!context.mounted) return;
                 context.go('/');
               },
             ),

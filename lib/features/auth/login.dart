@@ -21,6 +21,7 @@ class LoginPage extends StatelessWidget {
       required String password,
     }) async {
       await authProvider.setEmailOrPhone(emailOrPhone);
+      if (!context.mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('You are logged in successfully')),
       );
