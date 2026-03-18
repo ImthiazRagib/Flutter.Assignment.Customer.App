@@ -1,3 +1,4 @@
+import 'package:assignment_customer_app/core/drawer/drawer.dart';
 import 'package:assignment_customer_app/core/theme_provider.dart';
 import 'package:assignment_customer_app/features/atoms/heading_capsule.dart';
 import 'package:assignment_customer_app/features/atoms/order_button.dart';
@@ -8,6 +9,7 @@ import 'package:provider/provider.dart';
 import 'assignment_help.dart';
 import 'package:go_router/go_router.dart';
 import 'package:assignment_customer_app/core/auth_provider.dart';
+
 
 class LandingPage extends StatelessWidget {
   const LandingPage({super.key});
@@ -53,82 +55,7 @@ class LandingPage extends StatelessWidget {
                 ),
         ],
       ),
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: [
-            DrawerHeader(
-              decoration: BoxDecoration(color: Color(0xFF13245A)),
-              child: Text(
-                "Assignment Solutions",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-            ListTile(
-              leading: Icon(Icons.home),
-              title: Text("Home"),
-              onTap: () {
-                Navigator.pop(context);
-                context.go('/');
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.add_circle_outline),
-              title: Text("Order"),
-              onTap: () {
-                Navigator.pop(context);
-                context.go('/order');
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.dashboard),
-              title: Text("Dashboard"),
-              onTap: () {
-                Navigator.pop(context);
-                context.go('/dashboard');
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.person_outline),
-              title: Text("Profile"),
-              onTap: () {
-                Navigator.pop(context);
-                context.go('/profile');
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.login),
-              title: Text("Login"),
-              onTap: () {
-                Navigator.pop(context);
-                context.go('/login');
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.person_add),
-              title: Text("Sign up"),
-              onTap: () {
-                Navigator.pop(context);
-                context.go('/signup');
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.logout),
-              title: Text("Logout"),
-              onTap: () async {
-                Navigator.pop(context);
-                await authProvider.logout();
-                if (!context.mounted) return;
-                context.go('/');
-              },
-            ),
-          ],
-        ),
-      ),
+      drawer: CustomDrawer(),
       body: SingleChildScrollView(
         padding: const EdgeInsets.only(bottom: 80),
         child: Column(
