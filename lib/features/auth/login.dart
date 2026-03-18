@@ -10,7 +10,7 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final themeProvider = Provider.of<ThemeProvider>(context, listen: false);
+    final themeProvider = context.watch<ThemeProvider>();
     final backgroundColor = themeProvider.backgroundColor;
     final textColor = themeProvider.textColor;
     final accentColor = themeProvider.accentColor;
@@ -34,6 +34,16 @@ class LoginPage extends StatelessWidget {
           onPressed: () => context.canPop() ? context.pop() : context.go('/'),
         ),
         title: const Text("Login"),
+        actions: [
+          IconButton(
+            onPressed: () => themeProvider.isDarkMode ?
+            themeProvider.setThemeMode(ThemeMode.light) :
+            themeProvider.setThemeMode(ThemeMode.dark),
+            icon: themeProvider.isDarkMode ?
+            const Icon(Icons.light_mode) :
+            const Icon(Icons.dark_mode),
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(24),

@@ -12,10 +12,9 @@ import 'package:assignment_customer_app/core/auth_provider.dart';
 class LandingPage extends StatelessWidget {
   const LandingPage({super.key});
 
-
   @override
   Widget build(BuildContext context) {
-    final authProvider = Provider.of<AuthProvider>(context, listen: false);
+    final authProvider = context.watch<AuthProvider>();
     final themeProvider = Provider.of<ThemeProvider>(context);
     final backgroundColor = themeProvider.backgroundColor;
     final textColor = themeProvider.textColor;
@@ -35,6 +34,14 @@ class LandingPage extends StatelessWidget {
           ),
         ),
         actions: [
+          IconButton(
+            onPressed: () => themeProvider.isDarkMode
+                ? themeProvider.setThemeMode(ThemeMode.light)
+                : themeProvider.setThemeMode(ThemeMode.dark),
+            icon: themeProvider.isDarkMode
+                ? const Icon(Icons.light_mode)
+                : const Icon(Icons.dark_mode),
+          ),
           authenticated
               ? IconButton(
                   onPressed: () => context.go('/notification'),
@@ -107,6 +114,15 @@ class LandingPage extends StatelessWidget {
               onTap: () {
                 Navigator.pop(context);
                 context.go('/signup');
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.logout),
+              title: Text("Logout"),
+              onTap: () async {
+                Navigator.pop(context);
+                await authProvider.logout();
+                context.go('/');
               },
             ),
           ],
