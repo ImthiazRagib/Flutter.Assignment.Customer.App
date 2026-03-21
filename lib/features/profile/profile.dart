@@ -1,4 +1,5 @@
 import 'package:assignment_customer_app/features/profile/profile_edit.dart';
+import 'package:assignment_customer_app/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
@@ -63,8 +64,8 @@ class _ProfilePageState extends State<ProfilePage> {
       ),
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-          child: Column(
+            padding: kScreenPaddingWithFloatingNav,
+            child: Column(
             children: [
               SizedBox(
                 width: double.infinity,
@@ -82,7 +83,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               children: [
                                 CircleAvatar(
                                   child: Text(
-                                    'IR',
+                                    _nameController.text.isEmpty ? 'AS' : _nameController.text[0],
                                     style: TextStyle(
                                       fontSize: 24,
                                       fontWeight: FontWeight.bold,

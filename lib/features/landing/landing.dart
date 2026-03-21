@@ -3,6 +3,7 @@ import 'package:assignment_customer_app/core/theme_provider.dart';
 import 'package:assignment_customer_app/features/atoms/heading_capsule.dart';
 import 'package:assignment_customer_app/features/atoms/order_button.dart';
 import 'package:assignment_customer_app/features/atoms/primary_banner_bar.dart';
+import 'package:assignment_customer_app/utils/constants.dart';
 import 'package:assignment_customer_app/widgets/testimonials/testimonial_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -57,7 +58,7 @@ class LandingPage extends StatelessWidget {
       ),
       drawer: CustomDrawer(),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.only(bottom: 80),
+        padding: kScreenPaddingWithFloatingNav,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
