@@ -15,6 +15,7 @@ class _ProfilePageState extends State<ProfilePage> {
   final TextEditingController _phoneController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   TimeOfDay? _selectedTime;
+  String _selectedTimeFormat = '12 hours';
   String _selectedZone = '🇺🇸 America/New_York';
   String _selectedPhoneCountry = '🇺🇸 +1';
   String _updatedPhone = 'Not set';
@@ -55,6 +56,11 @@ class _ProfilePageState extends State<ProfilePage> {
 
   String _formatTime(BuildContext context) {
     if (_selectedTime == null) return 'Select time';
+    if (_selectedTimeFormat == '24 hours') {
+      final hour = _selectedTime!.hour.toString().padLeft(2, '0');
+      final minute = _selectedTime!.minute.toString().padLeft(2, '0');
+      return '$hour:$minute';
+    }
     return _selectedTime!.format(context);
   }
 
@@ -104,244 +110,268 @@ class _ProfilePageState extends State<ProfilePage> {
           ),
         ],
       ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          children: [
-            SizedBox(
-              width: double.infinity,
-              child: Card(
-                // color: ,
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+          child: Column(
+            children: [
+              SizedBox(
+                width: double.infinity,
+                child: Card(
+                  // color: ,
+                  child: Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Stack(
+                          children: [
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                CircleAvatar(
+                                  child: Text(
+                                    'IR',
+                                    style: TextStyle(
+                                      fontSize: 24,
+                                      fontWeight: FontWeight.bold,
+                                      color: accentColor,
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(width: 10),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      "Imthiaz Ragib",
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold,
+                                        color: textColor,
+                                      ),
+                                    ),
+                                    Text(
+                                      "UserId: 100012",
+                                      style: TextStyle(
+                                        fontSize: 12,
+                                        color: textColor,
+                                      ),
+                                    ),
+                                    Text(
+                                      "Rating: 4.5",
+                                      style: TextStyle(
+                                        fontSize: 12,
+                                        color: textColor,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                            Positioned(
+                              top: 0,
+                              right: 0,
+                              child: IconButton(
+                                onPressed: () => {},
+                                icon: Icon(
+                                  Icons.edit,
+                                  size: 16,
+                                  color: accentColor,
+                                  semanticLabel: 'Edit',
+                                ),
+                                tooltip: 'Edit',
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(height: 10),
+        
+              SizedBox(
+                width: double.infinity,
                 child: Padding(
                   padding: const EdgeInsets.all(16),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Stack(
+                      Text(
+                        'Email',
+                        style: TextStyle(
+                          color: textColor,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      Row(
                         children: [
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              CircleAvatar(
-                                child: Text(
-                                  'IR',
-                                  style: TextStyle(
-                                    fontSize: 24,
-                                    fontWeight: FontWeight.bold,
-                                    color: accentColor,
-                                  ),
-                                ),
+                          Expanded(
+                            child: TextField(
+                              controller: _emailController,
+                              keyboardType: TextInputType.emailAddress,
+                              onSubmitted: (_) => _applyEmailUpdate(),
+                              decoration: InputDecoration(
+                                hintText: 'Enter email address',
+                                border: const OutlineInputBorder(),
+                                prefixIcon: const Icon(Icons.email_outlined),
+                                isDense: true,
                               ),
-                              SizedBox(width: 10),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    "Imthiaz Ragib",
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
-                                      color: textColor,
-                                    ),
-                                  ),
-                                  Text(
-                                    "UserId: 100012",
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      color: textColor,
-                                    ),
-                                  ),
-                                  Text(
-                                    "Rating: 4.5",
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      color: textColor,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                          Positioned(
-                            top: 0,
-                            right: 0,
-                            child: IconButton(
-                              onPressed: () => {},
-                              icon: Icon(
-                                Icons.edit,
-                                size: 16,
-                                color: accentColor,
-                                semanticLabel: 'Edit',
-                              ),
-                              tooltip: 'Edit',
                             ),
                           ),
                         ],
                       ),
+                      const SizedBox(height: 8),
+                      Text(
+                        'Updated email: $_updatedEmail',
+                        style: TextStyle(color: textColor, fontSize: 10.0),
+                      ),
+                      const SizedBox(height: 8),
+                      DropdownButtonFormField<String>(
+                        initialValue: _selectedZone,
+                        decoration: const InputDecoration(
+                          border: OutlineInputBorder(),
+                        ),
+                        items: _timeZones
+                            .map(
+                              (zone) => DropdownMenuItem<String>(
+                                value: zone,
+                                child: Text(zone),
+                              ),
+                            )
+                            .toList(),
+                        onChanged: (value) {
+                          if (value == null) return;
+                          setState(() => _selectedZone = value);
+                        },
+                      ),
+                      const SizedBox(height: 6.0),
+                      Text(
+                        'Current zone: $_selectedZone',
+                        style: TextStyle(color: textColor, fontSize: 10.0),
+                      ),
+        
+                      const SizedBox(height: 12),
+                      DropdownButtonFormField<String>(
+                        initialValue: _selectedTimeFormat,
+                        decoration: const InputDecoration(
+                          labelText: 'Time format',
+                          border: OutlineInputBorder(),
+                        ),
+                        items: const [
+                          DropdownMenuItem(
+                            value: '12 hours',
+                            child: Text('12 hours'),
+                          ),
+                          DropdownMenuItem(
+                            value: '24 hours',
+                            child: Text('24 hours'),
+                          ),
+                        ],
+                        onChanged: (value) {
+                          if (value == null) return;
+                          setState(() => _selectedTimeFormat = value);
+                        },
+                      ),
+                      const SizedBox(height: 12),
+                      InkWell(
+                        onTap: _pickTime,
+                        borderRadius: BorderRadius.circular(8),
+                        child: InputDecorator(
+                          decoration: InputDecoration(
+                            labelText: 'Time ($_selectedTimeFormat)',
+                            border: OutlineInputBorder(),
+                            suffixIcon: Icon(Icons.access_time),
+                          ),
+                          child: Text(
+                            _formatTime(context),
+                            style: TextStyle(color: textColor),
+                          ),
+                        ),
+                      ),
+        
+                      const SizedBox(height: 12),
+                      Text(
+                        'Phone number',
+                        style: TextStyle(
+                          color: textColor,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      Row(
+                        children: [
+                          SizedBox(
+                            width: 125,
+                            child: DropdownButtonFormField<String>(
+                              initialValue: _selectedPhoneCountry,
+                              decoration: const InputDecoration(
+                                border: OutlineInputBorder(),
+                                isDense: true,
+                              ),
+                              items: _phoneCountries
+                                  .map(
+                                    (country) => DropdownMenuItem<String>(
+                                      value: country,
+                                      child: Text(country),
+                                    ),
+                                  )
+                                  .toList(),
+                              onChanged: (value) {
+                                if (value == null) return;
+                                setState(() => _selectedPhoneCountry = value);
+                              },
+                            ),
+                          ),
+                          const SizedBox(width: 8),
+                          Expanded(
+                            child: TextField(
+                              controller: _phoneController,
+                              keyboardType: TextInputType.phone,
+                              onSubmitted: (_) => _applyPhoneUpdate(),
+                              decoration: InputDecoration(
+                                hintText: 'Enter phone number',
+                                border: const OutlineInputBorder(),
+                                isDense: true,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 6),
+                      Text(
+                        'Updated phone: $_updatedPhone',
+                        style: TextStyle(color: textColor, fontSize: 10.0),
+                      ),
+                      const SizedBox(height: 12),
                     ],
                   ),
                 ),
               ),
-            ),
-            SizedBox(height: 10),
-
-            SizedBox(
-              width: double.infinity,
-              child: Padding(
-                padding: const EdgeInsets.all(16),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Email',
-                      style: TextStyle(
-                        color: textColor,
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: TextField(
-                            controller: _emailController,
-                            keyboardType: TextInputType.emailAddress,
-                            onSubmitted: (_) => _applyEmailUpdate(),
-                            decoration: InputDecoration(
-                              hintText: 'Enter email address',
-                              border: const OutlineInputBorder(),
-                              prefixIcon: const Icon(Icons.email_outlined),
-                              isDense: true,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 8),
-                    Text(
-                      'Updated email: $_updatedEmail',
-                      style: TextStyle(color: textColor, fontSize: 10.0),
-                    ),
-                    const SizedBox(height: 8),
-                    DropdownButtonFormField<String>(
-                      initialValue: _selectedZone,
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                      ),
-                      items: _timeZones
-                          .map(
-                            (zone) => DropdownMenuItem<String>(
-                              value: zone,
-                              child: Text(zone),
-                            ),
-                          )
-                          .toList(),
-                      onChanged: (value) {
-                        if (value == null) return;
-                        setState(() => _selectedZone = value);
-                      },
-                    ),
-                    const SizedBox(height: 6.0),
-                    Text(
-                      'Current zone: $_selectedZone',
-                      style: TextStyle(color: textColor, fontSize: 10.0),
-                    ),
-
-                    const SizedBox(height: 12),
-                    InkWell(
-                      onTap: _pickTime,
+              SizedBox(height: 10),
+        
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: () {},
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: themeProvider.primaryColor,
+                    foregroundColor: themeProvider.textColor,
+                    minimumSize: const Size.fromHeight(48),
+                    shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8),
-                      child: InputDecorator(
-                        decoration: const InputDecoration(
-                          labelText: 'Time',
-                          border: OutlineInputBorder(),
-                          suffixIcon: Icon(Icons.access_time),
-                        ),
-                        child: Text(
-                          _formatTime(context),
-                          style: TextStyle(color: textColor),
-                        ),
-                      ),
                     ),
-
-                    const SizedBox(height: 12),
-                    Text(
-                      'Phone number',
-                      style: TextStyle(
-                        color: textColor,
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    Row(
-                      children: [
-                        SizedBox(
-                          width: 125,
-                          child: DropdownButtonFormField<String>(
-                            initialValue: _selectedPhoneCountry,
-                            decoration: const InputDecoration(
-                              border: OutlineInputBorder(),
-                              isDense: true,
-                            ),
-                            items: _phoneCountries
-                                .map(
-                                  (country) => DropdownMenuItem<String>(
-                                    value: country,
-                                    child: Text(country),
-                                  ),
-                                )
-                                .toList(),
-                            onChanged: (value) {
-                              if (value == null) return;
-                              setState(() => _selectedPhoneCountry = value);
-                            },
-                          ),
-                        ),
-                        const SizedBox(width: 8),
-                        Expanded(
-                          child: TextField(
-                            controller: _phoneController,
-                            keyboardType: TextInputType.phone,
-                            onSubmitted: (_) => _applyPhoneUpdate(),
-                            decoration: InputDecoration(
-                              hintText: 'Enter phone number',
-                              border: const OutlineInputBorder(),
-                              isDense: true,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 6),
-                    Text(
-                      'Updated phone: $_updatedPhone',
-                      style: TextStyle(color: textColor, fontSize: 10.0),
-                    ),
-                    const SizedBox(height: 12),
-                  ],
-                ),
-              ),
-            ),
-            SizedBox(height: 10),
-
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                onPressed: () {},
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: themeProvider.primaryColor,
-                  foregroundColor: themeProvider.textColor,
-                  minimumSize: const Size.fromHeight(48),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
                   ),
+                  child: const Text('Update'),
                 ),
-                child: const Text('Update'),
               ),
-            )
-          ],
+            ],
+          ),
         ),
       ),
     );
