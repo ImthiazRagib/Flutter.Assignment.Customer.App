@@ -4,7 +4,7 @@ import 'package:assignment_customer_app/features/auth/login.dart';
 import 'package:assignment_customer_app/features/auth/signup.dart';
 import 'package:assignment_customer_app/features/dashboard.dart';
 import 'package:assignment_customer_app/features/order_page/order_page.dart';
-import 'package:assignment_customer_app/features/profile.dart';
+import 'package:assignment_customer_app/features/profile/profile.dart';
 import 'package:assignment_customer_app/widgets/floating_nav_bar.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
