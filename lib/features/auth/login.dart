@@ -15,6 +15,7 @@ class LoginPage extends StatelessWidget {
     final textColor = themeProvider.textColor;
     final accentColor = themeProvider.accentColor;
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
+    final from = GoRouterState.of(context).uri.queryParameters['from'];
     
     Future<void> login({
       required String emailOrPhone,
@@ -25,7 +26,7 @@ class LoginPage extends StatelessWidget {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('You are logged in successfully')),
       );
-      context.go('/dashboard');
+      context.go(from ?? '/dashboard');
     }
 
     return Scaffold(

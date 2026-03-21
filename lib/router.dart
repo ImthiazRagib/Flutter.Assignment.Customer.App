@@ -28,7 +28,9 @@ final GoRouter router = GoRouter(
           return '/dashboard';
         }
         if (!loggedIn && isProtectedRoute) {
-          return '/login';
+          final from = state.uri.toString();
+          
+          return '/login?from=${Uri.encodeComponent(from)}';
         }
 
         return null;

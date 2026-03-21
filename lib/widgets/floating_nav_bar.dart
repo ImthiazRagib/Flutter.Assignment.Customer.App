@@ -1,4 +1,3 @@
-import 'package:assignment_customer_app/core/auth_provider.dart';
 import 'package:assignment_customer_app/core/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -13,9 +12,7 @@ class FloatingNavBar extends StatelessWidget {
     final backgroundColor = themeProvider.backgroundColor;
     final textColor = themeProvider.textColor;
     final accentColor = themeProvider.accentColor;
-    final authProvider = context.watch<AuthProvider>();
     
-    final loggedIn = authProvider.isLoggedIn;
     return Positioned(
       bottom: 24,
       left: 0,
@@ -44,7 +41,7 @@ class FloatingNavBar extends StatelessWidget {
                       size: 22, color: textColor),
                 ),
                 IconButton(
-                  onPressed: loggedIn ? () => context.go('/profile') : null,
+                  onPressed: () => context.go('/profile'),
                   icon: Icon(Icons.person_outline, size: 22, color: textColor),
                 ),
               ],
