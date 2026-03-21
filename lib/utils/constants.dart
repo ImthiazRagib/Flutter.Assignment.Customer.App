@@ -23,11 +23,6 @@ const double kFloatingNavBarReserve =
     kFloatingNavBarContentHeight +
     kFloatingNavBarBottomOffset;
 
-// Fix: I used wrong name - user had 10 + 74 + 24. Let me fix the constant name.
-
-const double kFloatingNavBarReserve2 =
-    kScreenPaddingBottom + kFloatingNavBarContentHeight + kFloatingNavBarBottomOffset;
-
 /// Use this where you had:
 /// `EdgeInsets.fromLTRB(16, 10, 16, 10 + 74 + 24)`
 const EdgeInsets kScreenPaddingWithFloatingNav = EdgeInsets.fromLTRB(

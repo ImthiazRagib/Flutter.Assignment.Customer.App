@@ -1,3 +1,4 @@
+import 'package:assignment_customer_app/utils/constants.dart';
 import 'package:flutter/material.dart';
 
 class CustomSnackbar {
@@ -9,16 +10,9 @@ class CustomSnackbar {
     required String state,
   }) {
     final mq = MediaQuery.of(context);
-    // Keep SnackBar above shell FloatingNavBar (see widgets/floating_nav_bar.dart):
-    // Positioned(bottom: 24) + padded row (~64) + gap above bar.
-    const floatingNavBarBottomOffset = 20.0;
-    const floatingNavBarContentHeight = 20.0;
-    const gapAboveFloatingNav = 2.0;
-    final bottomMargin =
-        mq.padding.bottom +
-        floatingNavBarBottomOffset +
-        floatingNavBarContentHeight +
-        gapAboveFloatingNav;
+    // Match scroll content clearance (see [kFloatingNavBarReserve] in constants.dart)
+    // + system bottom inset so SnackBar clears the shell FloatingNavBar overlay.
+    final bottomMargin = mq.padding.bottom + kFloatingNavBarReserve;
 
     Color getStateColor({required String state}) {
       switch (state) {
