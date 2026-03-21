@@ -1,11 +1,41 @@
-import 'package:assignment_customer_app/features/profile/profil_edit.dart';
+import 'package:assignment_customer_app/features/profile/profile_edit.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import '../../core/theme_provider.dart';
 
-class ProfilePage extends StatelessWidget {
+class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
+
+  @override
+  State<ProfilePage> createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage> {
+  final TextEditingController _nameController = TextEditingController(
+    text: 'Imthiaz Ragib',
+  );
+  final FocusNode _nameFocusNode = FocusNode();
+  bool _isNameEditing = false;
+
+  @override
+  void dispose() {
+    _nameController.dispose();
+    _nameFocusNode.dispose();
+    super.dispose();
+  }
+
+  void _startEditingName() {
+    setState(() => _isNameEditing = true);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) _nameFocusNode.requestFocus();
+    });
+  }
+
+  void _finishEditingName() {
+    setState(() => _isNameEditing = false);
+    _nameFocusNode.unfocus();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -64,14 +94,41 @@ class ProfilePage extends StatelessWidget {
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(
-                                      "Imthiaz Ragib",
-                                      style: TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold,
-                                        color: textColor,
-                                      ),
-                                    ),
+                                    _isNameEditing
+                                        ? SizedBox(
+                                            width:
+                                                MediaQuery.sizeOf(
+                                                  context,
+                                                ).width *
+                                                0.5,
+                                            child: TextField(
+                                              controller: _nameController,
+                                              focusNode: _nameFocusNode,
+                                              style: TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.bold,
+                                                color: textColor,
+                                              ),
+                                              decoration: const InputDecoration(
+                                                isDense: true,
+                                                contentPadding: EdgeInsets.zero,
+                                                border: UnderlineInputBorder(),
+                                              ),
+                                              textInputAction:
+                                                  TextInputAction.done,
+                                              onSubmitted: (_) =>
+                                                  _finishEditingName(),
+                                            ),
+                                          )
+                                        : Text(
+                                            _nameController.text,
+                                            style: TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.bold,
+                                              color: textColor,
+                                            ),
+                                          ),
+                                    SizedBox(height: _isNameEditing ? 6 : 0),
                                     Text(
                                       "UserId: 100012",
                                       style: TextStyle(
@@ -94,14 +151,18 @@ class ProfilePage extends StatelessWidget {
                               top: 0,
                               right: 0,
                               child: IconButton(
-                                onPressed: () => {},
+                                onPressed: _isNameEditing
+                                    ? _finishEditingName
+                                    : _startEditingName,
                                 icon: Icon(
-                                  Icons.edit,
+                                  _isNameEditing ? Icons.check : Icons.edit,
                                   size: 16,
                                   color: accentColor,
-                                  semanticLabel: 'Edit',
+                                  semanticLabel: _isNameEditing
+                                      ? 'Done'
+                                      : 'Edit',
                                 ),
-                                tooltip: 'Edit',
+                                tooltip: _isNameEditing ? 'Done' : 'Edit',
                               ),
                             ),
                           ],
