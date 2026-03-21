@@ -1,5 +1,6 @@
 import 'package:assignment_customer_app/core/theme_provider.dart';
 import 'package:assignment_customer_app/core/auth_provider.dart';
+import 'package:assignment_customer_app/features/atoms/custom_snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';
@@ -21,31 +22,12 @@ class LoginPage extends StatelessWidget {
     }) async {
       await authProvider.setEmailOrPhone(emailOrPhone);
       if (!context.mounted) return;
-      final mq = MediaQuery.of(context);
-      // Keep SnackBar above shell FloatingNavBar (see widgets/floating_nav_bar.dart):
-      // Positioned(bottom: 24) + padded row (~64) + gap above bar.
-      const floatingNavBarBottomOffset = 20.0;
-      const floatingNavBarContentHeight = 20.0;
-      const gapAboveFloatingNav = 2.0;
-      final bottomMargin = mq.padding.bottom +
-          floatingNavBarBottomOffset +
-          floatingNavBarContentHeight +
-          gapAboveFloatingNav;
+      
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(
-            'You are logged in successfully',
-            style: TextStyle(color: Colors.white),
-          ),
-          backgroundColor: Colors.green,
-          duration: Duration(seconds: 2),
-          padding: EdgeInsets.all(10),
-          behavior: SnackBarBehavior.floating,
-          margin: EdgeInsets.only(
-            left: 16,
-            right: 16,
-            bottom: bottomMargin,
-          ),
+        CustomSnackbar.snackbar(
+          context,
+          content: Text('You are logged in successfully', style: TextStyle(color: Colors.white),),
+          state: 'success',
         ),
       );
       context.go(from ?? '/dashboard');
