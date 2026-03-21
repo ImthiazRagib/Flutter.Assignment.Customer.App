@@ -11,20 +11,42 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final themeProvider = context.watch<ThemeProvider>();
-    final backgroundColor = themeProvider.backgroundColor;
     final textColor = themeProvider.textColor;
-    final accentColor = themeProvider.accentColor;
     final authProvider = Provider.of<AuthProvider>(context, listen: false);
     final from = GoRouterState.of(context).uri.queryParameters['from'];
-    
+
     Future<void> login({
       required String emailOrPhone,
       required String password,
     }) async {
       await authProvider.setEmailOrPhone(emailOrPhone);
       if (!context.mounted) return;
+      final mq = MediaQuery.of(context);
+      // Keep SnackBar above shell FloatingNavBar (see widgets/floating_nav_bar.dart):
+      // Positioned(bottom: 24) + padded row (~64) + gap above bar.
+      const floatingNavBarBottomOffset = 20.0;
+      const floatingNavBarContentHeight = 20.0;
+      const gapAboveFloatingNav = 2.0;
+      final bottomMargin = mq.padding.bottom +
+          floatingNavBarBottomOffset +
+          floatingNavBarContentHeight +
+          gapAboveFloatingNav;
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('You are logged in successfully')),
+        SnackBar(
+          content: Text(
+            'You are logged in successfully',
+            style: TextStyle(color: Colors.white),
+          ),
+          backgroundColor: Colors.green,
+          duration: Duration(seconds: 2),
+          padding: EdgeInsets.all(10),
+          behavior: SnackBarBehavior.floating,
+          margin: EdgeInsets.only(
+            left: 16,
+            right: 16,
+            bottom: bottomMargin,
+          ),
+        ),
       );
       context.go(from ?? '/dashboard');
     }
@@ -38,12 +60,12 @@ class LoginPage extends StatelessWidget {
         title: const Text("Login"),
         actions: [
           IconButton(
-            onPressed: () => themeProvider.isDarkMode ?
-            themeProvider.setThemeMode(ThemeMode.light) :
-            themeProvider.setThemeMode(ThemeMode.dark),
-            icon: themeProvider.isDarkMode ?
-            const Icon(Icons.light_mode) :
-            const Icon(Icons.dark_mode),
+            onPressed: () => themeProvider.isDarkMode
+                ? themeProvider.setThemeMode(ThemeMode.light)
+                : themeProvider.setThemeMode(ThemeMode.dark),
+            icon: themeProvider.isDarkMode
+                ? const Icon(Icons.light_mode)
+                : const Icon(Icons.dark_mode),
           ),
         ],
       ),

@@ -36,7 +36,11 @@ class ProfilePage extends StatelessWidget {
           SizedBox(
             width: double.infinity,
             child: ElevatedButton(
-              onPressed: () => auth.logout(),
+              onPressed: () async {
+                await auth.logout();
+                if (!context.mounted) return;
+                context.go('/');
+              },
               child: const Text("Logout"),
             ),
           ),
