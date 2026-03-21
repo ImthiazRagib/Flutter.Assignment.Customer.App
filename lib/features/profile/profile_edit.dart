@@ -1,4 +1,5 @@
 import 'package:assignment_customer_app/core/theme_provider.dart';
+import 'package:assignment_customer_app/features/atoms/custom_snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -91,9 +92,10 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
     });
 
     ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
+      CustomSnackbar.snackbar(
+        context,
         content: Text('Profile updates applied'),
-        duration: Duration(seconds: 2),
+        state: 'success',
       ),
     );
   }
